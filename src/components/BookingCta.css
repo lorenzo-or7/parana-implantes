@@ -1,0 +1,108 @@
+.booking-cta {
+  padding-block: calc(var(--section-y) * 0.5);
+}
+
+.booking-cta__panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: clamp(36px, 6vw, 96px);
+  align-items: center;
+  padding: clamp(32px, 6vw, 88px);
+  border-radius: var(--r-frame);
+  background: var(--brown);
+  color: var(--cream);
+}
+
+:root[data-theme='dark'] .booking-cta__panel {
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.booking-cta__copy {
+  display: grid;
+  gap: 22px;
+  justify-items: start;
+}
+
+.booking-cta__lead {
+  max-width: 44ch;
+  color: rgba(255, 243, 231, 0.84);
+  font-size: 1.08rem;
+}
+
+.booking-cta__btn {
+  min-height: 54px;
+  margin-top: 8px;
+  background: var(--cream);
+  color: var(--brown);
+}
+
+.booking-cta__btn:hover {
+  background: #fffaf4;
+}
+
+.booking-cta__btn:focus-visible {
+  outline-color: var(--cream);
+}
+
+.booking-cta__steps {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.booking-cta__steps li {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 16px;
+  align-items: start;
+  padding: 18px 0;
+  border-top: 1px solid rgba(255, 243, 231, 0.16);
+}
+
+.booking-cta__steps li:last-child {
+  border-bottom: 1px solid rgba(255, 243, 231, 0.16);
+}
+
+.booking-cta__num {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--champagne);
+  border-radius: 50%;
+  color: var(--gold-soft);
+  font-size: 0.9rem;
+}
+
+.booking-cta__step-title {
+  display: block;
+  font-weight: 400;
+  font-size: 1.05rem;
+}
+
+.booking-cta__step-text {
+  display: block;
+  color: rgba(255, 243, 231, 0.72);
+  font-size: 0.925rem;
+}
+
+@media (max-width: 900px) {
+  .booking-cta__panel {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .booking-cta .container {
+    padding-inline: 8px;
+  }
+  .booking-cta__panel {
+    padding: 36px 22px;
+    border-radius: 24px;
+  }
+  .booking-cta__btn {
+    width: 100%;
+  }
+}

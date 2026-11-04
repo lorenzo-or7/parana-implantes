@@ -1,0 +1,73 @@
+.dialog-root {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.dialog-backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--scrim);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.dialog-panel {
+  position: relative;
+  width: 100%;
+  max-height: min(860px, calc(100dvh - 48px));
+  overflow: auto;
+  overscroll-behavior: contain;
+  border-radius: 28px;
+  background: var(--bg);
+  color: var(--ink);
+  box-shadow: 0 40px 80px -30px rgba(20, 12, 6, 0.55);
+  outline: none;
+}
+
+.dialog-panel--md {
+  max-width: 640px;
+}
+
+.dialog-panel--lg {
+  max-width: 880px;
+}
+
+.dialog-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: var(--ink);
+  transition: border-color var(--dur-fast) var(--ease-soft);
+}
+
+.dialog-close:hover {
+  border-color: var(--line-strong);
+}
+
+@media (max-width: 640px) {
+  .dialog-root {
+    place-items: end stretch;
+    padding: 0;
+  }
+
+  .dialog-panel {
+    max-width: none;
+    max-height: calc(100dvh - 24px);
+    border-radius: 24px 24px 0 0;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}

@@ -1,0 +1,147 @@
+.visit__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(36px, 6vw, 96px);
+  align-items: stretch;
+}
+
+.visit__copy {
+  display: grid;
+  align-content: start;
+  gap: 24px;
+}
+
+.visit__address {
+  display: grid;
+  font-style: normal;
+  font-size: 1.1rem;
+  color: var(--ink-soft);
+}
+
+.visit__street {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+  color: var(--ink);
+}
+
+.visit__hint {
+  max-width: 44ch;
+  color: var(--ink-soft);
+}
+
+.visit__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.visit__contacts {
+  display: grid;
+  margin: 12px 0 0;
+}
+
+.visit__contacts > div {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 16px;
+  align-items: center;
+  min-height: 52px;
+  border-top: 1px solid var(--line);
+}
+
+.visit__contacts > div:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.visit__contacts dt {
+  color: var(--ink-faint);
+  font-size: 0.9rem;
+}
+
+.visit__contacts dd {
+  margin: 0;
+}
+
+.visit__contacts a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  text-decoration: none;
+}
+
+.visit__contacts a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.visit__map {
+  position: relative;
+  display: block;
+  min-height: 420px;
+  border-radius: var(--r-media);
+  overflow: hidden;
+  color: var(--cream);
+  text-decoration: none;
+}
+
+.visit__map img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 60% 40%;
+  transition: transform 700ms var(--ease);
+}
+
+.visit__map:hover img {
+  transform: scale(1.03);
+}
+
+.visit__map::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(42, 26, 14, 0.75), rgba(42, 26, 14, 0) 45%);
+}
+
+.visit__map-label {
+  position: absolute;
+  left: 22px;
+  bottom: 20px;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: var(--r-pill);
+  background: rgba(255, 243, 231, 0.14);
+  border: 1px solid rgba(255, 243, 231, 0.4);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.visit__map:focus-visible {
+  outline-offset: 4px;
+  border-radius: var(--r-media);
+}
+
+@media (max-width: 900px) {
+  .visit__grid {
+    grid-template-columns: 1fr;
+  }
+  .visit__map {
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .visit__actions .btn {
+    flex: 1 1 100%;
+  }
+  .visit__contacts > div {
+    grid-template-columns: 96px 1fr;
+  }
+}
