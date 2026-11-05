@@ -138,3 +138,28 @@
     border-top: 0;
   }
 }
+
+/* ---------- V2.2: mobile ---------- */
+@media (max-width: 899px) {
+  .intro {
+    padding-block: 48px var(--section-y);
+  }
+}
+
+@media (max-width: 560px) {
+  .intro {
+    padding-block: 32px 40px;
+  }
+  .intro__panel {
+    gap: 18px;
+    padding: 24px 20px 8px;
+  }
+  .intro__story {
+    gap: var(--s-3);
+  }
+  .intro__pillar,
+  .intro__pillar:nth-child(n) {
+    gap: 4px;
+    padding: 14px 0;
+  }
+}

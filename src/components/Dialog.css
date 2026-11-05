@@ -68,3 +68,27 @@
     padding-bottom: env(safe-area-inset-bottom);
   }
 }
+
+/* ---------- V2.2: o diálogo ocupa só a área visível, inclusive com o teclado aberto ---------- */
+@media (max-width: 899px), (pointer: coarse) {
+  .dialog-root {
+    inset: var(--vv-top, 0px) 0 auto;
+    height: var(--vv-height, 100dvh);
+    grid-template-rows: minmax(0, 1fr);
+  }
+  .dialog-panel {
+    max-height: min(860px, 100%);
+  }
+}
+
+@media (max-width: 640px) {
+  .dialog-panel {
+    max-height: calc(100% - 24px);
+  }
+}
+
+@media (max-width: 899px) and (max-height: 500px) {
+  .dialog-root {
+    padding: 8px max(16px, env(safe-area-inset-right)) 8px max(16px, env(safe-area-inset-left));
+  }
+}

@@ -274,3 +274,35 @@
     padding: 0;
   }
 }
+
+/* ---------- V2.2: mobile ---------- */
+@media (max-width: 899px) {
+  /* Altura constante: a ilha não muda de tamanho ao rolar, então não há layout durante o scroll. */
+  .nav-wrap,
+  .nav-wrap:has(.island[data-scrolled]) {
+    padding: calc(10px + env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) 0 max(10px, env(safe-area-inset-left));
+    transition: none;
+  }
+  /* Fundo do menu aberto: tocar fora só fecha o menu, não aciona o que está atrás. */
+  .nav-wrap:has(.island[data-open])::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: var(--scrim);
+    pointer-events: auto;
+  }
+  .island {
+    transition:
+      box-shadow var(--dur) var(--ease-soft),
+      background-color var(--dur) var(--ease-soft);
+  }
+  .island__menu {
+    max-height: calc(100dvh - 90px - env(safe-area-inset-top));
+    overscroll-behavior: contain;
+  }
+  .island__menu-link[aria-current='true'] {
+    padding-left: 14px;
+    box-shadow: inset 2px 0 0 var(--rule);
+  }
+}

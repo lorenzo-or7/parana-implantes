@@ -182,3 +182,40 @@
     flex-direction: column;
   }
 }
+
+/* ---------- V2.2: mobile ---------- */
+@media (max-width: 900px) {
+  .history__top {
+    gap: 20px;
+  }
+  .history__dateline {
+    gap: 12px;
+    padding-bottom: 0;
+  }
+  .history__intro {
+    gap: var(--s-4);
+    padding-top: 20px;
+  }
+  .history__chapters {
+    margin-top: 24px;
+  }
+  .history__chapter,
+  .history__chapter:first-child,
+  .history__chapter:last-child {
+    gap: 6px;
+    padding: 16px 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .history__year {
+    font-size: clamp(4.25rem, 2.6rem + 8vw, 5rem);
+  }
+  .history__founders {
+    gap: 8px 32px;
+    padding-top: 18px;
+  }
+  .history__people {
+    gap: 12px;
+  }
+}

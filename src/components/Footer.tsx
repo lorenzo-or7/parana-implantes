@@ -60,7 +60,7 @@ export function Footer() {
             {/* Assinatura Or7: arquivo original, proporção preservada, junto da identidade da clínica. */}
             <img
               className="footer__signature"
-              src={asset('assets/marca/marca_dagua_or7_original.png')}
+              src={asset('assets/marca/marca_dagua_or7_480.webp')}
               alt="Or7 — idealizado e desenvolvido por Lorenzo Orsetti"
               width={2048}
               height={682}

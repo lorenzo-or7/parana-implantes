@@ -1,4 +1,5 @@
-import { ArrowUpRight, MapPin } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowUpRight, Hand, MapPin } from 'lucide-react';
 import {
   ADDRESS,
   INSTAGRAM_URL,
@@ -12,6 +13,8 @@ import {
 import './Visit.css';
 
 export function Visit() {
+  const [mapActive, setMapActive] = useState(false);
+
   return (
     <section id="contato" className="visit section" aria-labelledby="visit-title">
       <div className="container visit__grid">
@@ -73,7 +76,7 @@ export function Visit() {
         </div>
 
         <figure className="visit__map">
-          <div className="visit__map-frame">
+          <div className="visit__map-frame" data-active={mapActive || undefined}>
             {/* Fica por baixo do iframe: aparece se o mapa não carregar. */}
             <div className="visit__map-fallback" aria-hidden="true">
               <MapPin size={28} strokeWidth={1.5} />
@@ -86,6 +89,8 @@ export function Visit() {
               referrerPolicy="no-referrer-when-downgrade"
               allowFullScreen
             />
+            {/* Só em toque: deixa a rolagem passar e ativa o mapa com um toque. O botão abaixo faz o mesmo. */}
+            <div className="visit__map-shield" aria-hidden="true" onClick={() => setMapActive(true)} />
           </div>
           <figcaption className="visit__map-bar">
             <span>
@@ -94,6 +99,15 @@ export function Visit() {
                 {ADDRESS.street}, {ADDRESS.district}
               </span>
             </span>
+            <button
+              type="button"
+              className="btn btn--ghost btn--sm visit__map-toggle"
+              aria-pressed={mapActive}
+              onClick={() => setMapActive((value) => !value)}
+            >
+              <Hand size={16} strokeWidth={1.8} aria-hidden="true" />
+              {mapActive ? 'Voltar a rolar a página' : 'Mover o mapa'}
+            </button>
             <a className="text-link" href={MAPS_URL} target="_blank" rel="noopener noreferrer">
               Abrir no Google Maps
               <ArrowUpRight size={16} strokeWidth={1.8} aria-hidden="true" />

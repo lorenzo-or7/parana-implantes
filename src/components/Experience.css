@@ -63,3 +63,14 @@
     aspect-ratio: 5 / 4;
   }
 }
+
+/* ---------- V2.2: mobile ---------- */
+@media (max-width: 640px) {
+  .experience__gallery {
+    gap: 24px;
+  }
+  .experience__figure figcaption {
+    margin-top: 10px;
+    padding-top: 10px;
+  }
+}

@@ -147,7 +147,7 @@ const ProfileCard = ({
 }: ProfileCardProps) => {
   const rootRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef<Engine | null>(null);
-  const settings = { enableTilt, tiltStrength, parallax, mobileTiltSensitivity, intro };
+  const settings = { enableTilt, enableMobileTilt, tiltStrength, parallax, mobileTiltSensitivity, intro };
   const settingsRef = useRef(settings);
   useLayoutEffect(() => {
     settingsRef.current = settings;
@@ -253,7 +253,8 @@ const ProfileCard = ({
       if (event.pointerType === 'mouse') release();
     };
     const onDown = (event: PointerEvent) => {
-      if (event.pointerType === 'mouse') return;
+      // Sem efeito em touch: rolar a página por cima do card não inclina nem acorda o motor.
+      if (event.pointerType === 'mouse' || !settingsRef.current.enableMobileTilt) return;
       touchId = event.pointerId;
       aimAt(event);
     };

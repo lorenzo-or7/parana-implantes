@@ -168,3 +168,84 @@
     padding: 10px 16px;
   }
 }
+
+/* ---------- V2.2: mobile ---------- */
+.visit__map-shield,
+.visit__map-toggle {
+  display: none;
+}
+
+/* Em toque, o mapa só recebe gestos depois de ativado: a página continua rolando por cima dele. */
+@media (pointer: coarse) {
+  .visit__map-frame:not([data-active]) iframe {
+    pointer-events: none;
+  }
+  .visit__map-frame:not([data-active]) .visit__map-shield {
+    position: absolute;
+    inset: 0;
+    display: block;
+    touch-action: pan-y;
+  }
+  .visit__map-toggle {
+    display: inline-flex;
+  }
+  /* Filtro em iframe é repintado a cada movimento do mapa: em touch ele fica de fora. */
+  :root[data-theme='dark'] .visit__map iframe {
+    filter: none;
+  }
+}
+
+@media (max-width: 960px) {
+  .visit__contacts {
+    margin-top: var(--s-6);
+  }
+}
+
+@media (max-width: 899px) and (max-height: 500px) {
+  .visit__map-frame {
+    min-height: 260px;
+  }
+}
+
+@media (max-width: 480px) {
+  .visit__grid {
+    gap: 28px;
+  }
+  .visit__address {
+    margin-top: var(--s-5);
+  }
+  .visit__hint {
+    margin-top: var(--s-3);
+  }
+  .visit__actions {
+    margin-top: var(--s-5);
+  }
+  .visit__map-frame {
+    min-height: 280px;
+  }
+  .visit__map-bar .text-link,
+  .visit__map-bar .btn {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+}
+
+/* Colunas e contatos cedem com texto ampliado: o @ do Instagram quebra em vez de alargar a página. */
+@media (max-width: 960px) {
+  .visit__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .visit__copy {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .visit__contacts > div {
+    grid-template-columns: 92px minmax(0, 1fr);
+  }
+  .visit__contacts a {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+}

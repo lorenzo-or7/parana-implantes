@@ -13,6 +13,8 @@ export function Professionals() {
   const { openBooking } = useBooking();
   const [selected, setSelected] = useState<Doctor | null>(null);
   const trigger = useRef<HTMLElement | null>(null);
+  // A animação de entrada dos cards só faz sentido com ponteiro: em touch ela rodaria fora da tela.
+  const [hasHover] = useState(() => window.matchMedia('(hover: hover)').matches);
 
   return (
     <section id="profissionais" className="pros section" aria-labelledby="pros-title">
@@ -62,7 +64,7 @@ export function Professionals() {
               parallax={4}
               radius={20}
               enableTilt
-              intro
+              intro={hasHover}
               enableMobileTilt={false}
               className="pros__card"
             />

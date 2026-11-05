@@ -147,7 +147,9 @@ function BookingFlow({ preset, view, setView, onDirtyChange, onClose }: FlowProp
     if (!first) return;
     requestAnimationFrame(() => {
       const el = document.querySelector<HTMLElement>(`[data-field="${first}"]`);
-      el?.focus();
+      el?.focus({ preventScroll: true });
+      // A mensagem precisa aparecer junto do campo, sem ficar atrás do rodapé fixo.
+      document.querySelector('.booking__error')?.scrollIntoView({ block: 'center' });
     });
   };
 
@@ -230,7 +232,7 @@ function BookingFlow({ preset, view, setView, onDirtyChange, onClose }: FlowProp
   const keepFieldVisible = (event: FocusEvent<HTMLDivElement>) => {
     const target = event.target;
     if (!(target instanceof HTMLInputElement) || !['text', 'tel', 'date'].includes(target.type)) return;
-    if (!window.matchMedia('(max-width: 640px)').matches) return;
+    if (!window.matchMedia('(max-width: 899px), (pointer: coarse)').matches) return;
     window.setTimeout(() => target.scrollIntoView({ block: 'center', behavior: reduced ? 'auto' : 'smooth' }), 280);
   };
 

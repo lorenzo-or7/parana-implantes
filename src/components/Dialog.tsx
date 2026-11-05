@@ -41,6 +41,7 @@ export function Dialog({
   closeLabel = 'Fechar',
 }: DialogProps) {
   const panelRef = useRef<HTMLDivElement>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
   const requestCloseRef = useRef(onRequestClose);
   useLayoutEffect(() => {
@@ -102,12 +103,55 @@ export function Dialog({
     };
   }, [open, initialFocus, returnFocus]);
 
+  // Teclado virtual: no iOS o 100dvh não encolhe com o teclado, e os botões do rodapé ficariam
+  // atrás dele. O diálogo passa a ocupar só a área visível (viewport visual).
+  useEffect(() => {
+    const viewport = window.visualViewport;
+    if (!open || !viewport) return;
+    const seen = { width: viewport.width, fullHeight: viewport.height, lastHeight: viewport.height };
+
+    const sync = () => {
+      const root = rootRef.current;
+      if (!root) return;
+      // Pinça de zoom também muda o viewport visual: nesse caso o layout fica como está.
+      if (viewport.scale > 1.01) {
+        root.style.removeProperty('--vv-height');
+        root.style.removeProperty('--vv-top');
+        delete root.dataset.keyboard;
+        return;
+      }
+      if (viewport.width !== seen.width) {
+        seen.width = viewport.width;
+        seen.fullHeight = viewport.height;
+      }
+      seen.fullHeight = Math.max(seen.fullHeight, viewport.height);
+      root.style.setProperty('--vv-height', `${viewport.height}px`);
+      root.style.setProperty('--vv-top', `${viewport.offsetTop}px`);
+      if (seen.fullHeight - viewport.height > 120) root.dataset.keyboard = '';
+      else delete root.dataset.keyboard;
+
+      // Ao abrir o teclado, o campo em foco volta para a área visível.
+      if (viewport.height !== seen.lastHeight) {
+        seen.lastHeight = viewport.height;
+        const active = document.activeElement;
+        if (active instanceof HTMLInputElement && root.contains(active)) active.scrollIntoView({ block: 'center' });
+      }
+    };
+    sync();
+    viewport.addEventListener('resize', sync);
+    viewport.addEventListener('scroll', sync);
+    return () => {
+      viewport.removeEventListener('resize', sync);
+      viewport.removeEventListener('scroll', sync);
+    };
+  }, [open]);
+
   const duration = reduced ? 0 : 0.32;
 
   return createPortal(
     <AnimatePresence>
       {open && (
-        <div className="dialog-root">
+        <div ref={rootRef} className="dialog-root">
           <motion.div
             className="dialog-backdrop"
             initial={{ opacity: 0 }}

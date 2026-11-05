@@ -93,6 +93,16 @@ for (const file of ['logo_principal_manuscrita.png', 'logo_secundaria_dente_dour
   console.log(`logo_principal_alpha.png ${res.width}x${res.height} (bg ${bg.toFixed(0)}, fg ${fg.toFixed(0)})`);
 }
 
+// Assinatura Or7: o original (2048 px, 488 KB) segue em public/ e assets-source/. O site exibe
+// no máximo 200 px, então usa uma cópia de 480 px com a mesma arte e a mesma proporção.
+{
+  const res = await sharp(path.join(SRC, 'marca/marca_dagua_or7_original.png'))
+    .resize({ width: 480 })
+    .webp({ quality: 90, alphaQuality: 100, effort: 6, smartSubsample: true })
+    .toFile(path.join(OUT, 'marca/marca_dagua_or7_480.webp'));
+  console.log(`marca_dagua_or7_480.webp ${res.width}x${res.height} ${res.size} bytes`);
+}
+
 // Favicon: recorte do símbolo (dente) da marca secundária, sem redesenho.
 {
   const input = path.join(SRC, 'marca/logo_secundaria_dente_dourado.png');

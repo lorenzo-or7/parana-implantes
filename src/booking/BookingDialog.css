@@ -584,7 +584,7 @@ button.booking__progress-hit:hover .booking__progress-label {
 }
 
 /* ---------- tablet e mobile: cabeçalho compacto com progresso horizontal ---------- */
-@media (max-width: 760px) {
+@media (max-width: 899px) {
   .dialog-panel.booking-dialog {
     max-width: 620px;
   }
@@ -676,5 +676,198 @@ button.booking__progress-hit:hover .booking__progress-label {
   .booking__submit {
     flex: 1;
     padding-inline: 14px;
+  }
+}
+
+/* ---------- V2.2: mobile ---------- */
+.booking__field input[type='date'] {
+  min-width: 0; /* o iOS impõe largura própria ao campo de data, que vazaria do painel */
+  text-align: left;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Altura do painel relativa à área visível (ver Dialog.tsx): acompanha o teclado virtual. */
+@media (max-width: 899px), (pointer: coarse) {
+  .dialog-panel.booking-dialog {
+    height: min(720px, 100%);
+  }
+}
+
+/* Cabeçalho compacto: menos altura para a marca, mais para a etapa. */
+@media (max-width: 899px) {
+  .booking__aside {
+    padding: 14px 64px 10px 18px;
+  }
+  .booking__title {
+    font-size: 1.375rem;
+  }
+  .booking__progress {
+    margin-top: 4px;
+  }
+  /* Mesma altura em todas as etapas: o cabeçalho não salta ao avançar. */
+  .booking__progress-hit,
+  button.booking__progress-hit {
+    min-height: 40px;
+    padding-top: 6px;
+  }
+  .booking__body {
+    padding: 20px 18px;
+  }
+  .booking__foot {
+    padding: 12px 18px;
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 640px) {
+  .dialog-panel.booking-dialog {
+    height: calc(100% - 12px);
+    max-height: calc(100% - 12px);
+    padding-bottom: 0; /* a área segura já está no rodapé de ações */
+  }
+  /* A mensagem de erro aparece antes da lista, sem depender de rolar até o fim. */
+  .booking__fieldset .booking__error {
+    order: 1;
+  }
+  .booking__fieldset .booking__options {
+    order: 2;
+  }
+  .booking__fields {
+    gap: 20px;
+  }
+  .booking__step {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 420px) {
+  .booking__submit {
+    white-space: normal;
+    line-height: 1.2;
+  }
+  .booking__foot .btn {
+    padding-inline: 12px;
+  }
+  .booking__consent {
+    padding: 12px;
+  }
+}
+
+/* Teclado aberto: a etapa fica com o espaço; cabeçalho e rodapé encolhem. */
+.dialog-root[data-keyboard] .booking__badge,
+.dialog-root[data-keyboard] .booking__title {
+  display: none;
+}
+
+.dialog-root[data-keyboard] .booking__aside {
+  justify-content: center;
+  min-height: 56px;
+  padding-block: 6px;
+}
+
+/* Sem espaço para os quatro nomes: as barras indicam o progresso e só a etapa atual é nomeada. */
+.dialog-root[data-keyboard] .booking__progress {
+  margin: 0;
+}
+
+.dialog-root[data-keyboard] .booking__progress-item:not([data-state='current']) .booking__progress-label {
+  visibility: hidden;
+}
+
+.dialog-root[data-keyboard] .booking__progress-label {
+  white-space: nowrap;
+}
+
+.dialog-root[data-keyboard] .booking__progress-hit,
+.dialog-root[data-keyboard] button.booking__progress-hit {
+  min-height: 34px;
+}
+
+.dialog-root[data-keyboard] .dialog-close {
+  top: 6px;
+  right: 10px;
+}
+
+.dialog-root[data-keyboard] .booking__body {
+  padding-block: 14px;
+}
+
+.dialog-root[data-keyboard] .booking__foot {
+  padding-block: 8px;
+}
+
+/* Celular deitado: cabeçalho em uma linha só, para sobrar altura para a etapa. */
+@media (max-width: 899px) and (max-height: 500px) {
+  .dialog-panel.booking-dialog {
+    max-width: none;
+    height: 100%;
+  }
+  .booking {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+  .booking__aside {
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    overflow: visible;
+    padding: 6px 64px 6px 18px;
+    box-shadow: none;
+  }
+  .booking__badge,
+  .booking__intro,
+  .booking__aside-note,
+  .booking__progress-value,
+  .booking__progress-marker {
+    display: none;
+  }
+  .booking__title {
+    flex: none;
+    margin: 0;
+    font-size: 1.125rem;
+  }
+  .booking__progress {
+    flex: 1;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+    margin: 0;
+  }
+  .booking__progress-item::before {
+    display: none;
+  }
+  .booking__progress-hit,
+  button.booking__progress-hit {
+    display: block;
+    min-height: 36px;
+    padding: 6px 0 0;
+    border-top: 3px solid var(--a-line);
+    border-radius: 0;
+  }
+  button.booking__progress-hit {
+    display: flex;
+    align-items: flex-start;
+  }
+  .booking__progress-text {
+    padding-top: 0;
+  }
+  .booking__progress-item[data-state='current'] .booking__progress-hit,
+  .booking__progress-item[data-state='done'] .booking__progress-hit {
+    border-top-color: var(--gold-soft);
+  }
+  .booking__progress-label {
+    font-size: 0.75rem;
+  }
+  .booking__step-title {
+    padding-right: 0;
+  }
+  .booking__body {
+    padding: 12px 18px;
+  }
+  .booking__foot {
+    padding: 6px 18px;
+  }
+  .booking__options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

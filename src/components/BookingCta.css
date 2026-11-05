@@ -98,3 +98,30 @@
     width: 100%;
   }
 }
+
+/* ---------- V2.2: mobile ---------- */
+@media (max-width: 900px) {
+  .booking-cta__panel {
+    gap: 24px;
+  }
+}
+
+@media (max-width: 560px) {
+  .booking-cta__panel {
+    padding: 26px 20px 12px;
+  }
+  .booking-cta__lead {
+    margin-top: var(--s-3);
+  }
+  .booking-cta__btn {
+    margin-top: var(--s-5);
+  }
+  .booking-cta__steps li {
+    gap: 10px;
+    padding: 12px 0;
+    grid-template-columns: 36px 1fr;
+  }
+  .booking-cta__steps li:last-child {
+    border-bottom: 0;
+  }
+}

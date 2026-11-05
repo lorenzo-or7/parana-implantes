@@ -19,6 +19,20 @@ export function Hero() {
   const reduced = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const [parallaxOn, setParallaxOn] = useState(false);
+  // Touch e telas estreitas: o mesmo Cinematic Reveal, com o conteúdo aparecendo antes.
+  const [compact] = useState(() => window.matchMedia('(max-width: 899px)').matches);
+  const delayScale = compact ? 0.5 : 1;
+  const durationScale = compact ? 0.75 : 1;
+  // Como o reveal é mais curto aqui, o texto espera a fonte (no máximo 1,5 s): a troca da fonte
+  // de reserva pela definitiva não desloca o texto diante do usuário.
+  const [textReady, setTextReady] = useState(!compact);
+
+  useEffect(() => {
+    if (textReady) return;
+    const timer = window.setTimeout(() => setTextReady(true), 1500);
+    document.fonts?.ready.then(() => setTextReady(true));
+    return () => window.clearTimeout(timer);
+  }, [textReady]);
 
   // Parallax Depth: só em telas largas com ponteiro fino.
   useEffect(() => {
@@ -38,11 +52,11 @@ export function Hero() {
   // Cinematic Reveal: a foto abre da direita para a esquerda; o texto entra em sequência.
   const line = (delay: number) =>
     reduced
-      ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.2 } }
+      ? { initial: { opacity: 0 }, animate: { opacity: textReady ? 1 : 0 }, transition: { duration: 0.2 } }
       : {
           initial: { opacity: 0, y: 18 },
-          animate: { opacity: 1, y: 0 },
-          transition: { duration: 0.7, delay, ease: EASE },
+          animate: textReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 },
+          transition: { duration: 0.7 * durationScale, delay: delay * delayScale, ease: EASE },
         };
 
   return (
@@ -73,7 +87,7 @@ export function Hero() {
           className="hero__media"
           initial={reduced ? { opacity: 0 } : { clipPath: 'inset(0% 0% 0% 100%)' }}
           animate={reduced ? { opacity: 1 } : { clipPath: 'inset(0% 0% 0% 0%)' }}
-          transition={{ duration: reduced ? 0.2 : 1.15, ease: EASE }}
+          transition={{ duration: reduced ? 0.2 : 1.15 * durationScale, ease: EASE }}
         >
           <motion.img
             className="hero__img"
@@ -86,7 +100,7 @@ export function Hero() {
             style={depth ? { y: imageY } : undefined}
             initial={reduced ? false : { scale: 1.08 }}
             animate={{ scale: 1 }}
-            transition={{ duration: reduced ? 0 : 1.6, ease: EASE }}
+            transition={{ duration: reduced ? 0 : 1.6 * durationScale, ease: EASE }}
           />
           <figcaption className="hero__caption">Recepção da clínica, Av. Brasília, 5030</figcaption>
         </motion.figure>

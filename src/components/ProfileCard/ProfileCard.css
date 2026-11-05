@@ -381,3 +381,18 @@
 .profile-card__contact {
   margin-left: auto;
 }
+
+/* V2.2: em touch não há ponteiro para acionar a holografia. As camadas com blend, filtro e
+   máscara saem da composição durante a rolagem; a moldura, a foto e o texto ficam iguais. */
+@media (hover: none) {
+  .profile-card__body {
+    transform: none;
+    will-change: auto;
+  }
+  .profile-card__sheen,
+  .profile-card__holo,
+  .profile-card__glare,
+  .profile-card__shade {
+    display: none;
+  }
+}

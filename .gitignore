@@ -29,3 +29,6 @@ assets-source/
 .env
 .env.*
 !.env.example
+
+# Evidências locais da revisão V2.2
+capturas-v2-2/

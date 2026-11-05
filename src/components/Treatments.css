@@ -197,3 +197,49 @@
     flex: 1 1 100%;
   }
 }
+
+/* ---------- V2.2: mobile ----------
+   A altura vinha de 8 cards em 16:10 na largura toda (209 px cada). As fotos originais
+   são faixas de 546 × 197: perto dessa proporção elas aparecem quase inteiras, sem ampliar. */
+@media (max-width: 899px) {
+  .focus-card__button {
+    aspect-ratio: 2 / 1;
+  }
+}
+
+@media (max-width: 560px) {
+  .focus-grid {
+    gap: 10px;
+  }
+  .focus-card__button {
+    aspect-ratio: 12 / 5;
+  }
+  .focus-card__body {
+    left: 14px;
+    right: 12px;
+    bottom: 10px;
+  }
+  .focus-card__title {
+    font-size: 1.125rem;
+  }
+  .treatments__foot {
+    margin-top: 24px;
+    padding-top: 20px;
+  }
+  .treatment-panel__body {
+    gap: 12px;
+    padding: 22px 20px 20px;
+  }
+}
+
+/* Retorno de toque: o mesmo destaque do card em foco, enquanto o dedo está sobre ele. */
+@media (hover: none) {
+  .focus-card__button:active .focus-card__img {
+    transform: scale(1.035);
+  }
+  .focus-card__button:active .focus-card__cta {
+    border-color: var(--cream);
+    background: var(--cream);
+    color: var(--brown);
+  }
+}

@@ -204,3 +204,65 @@
     width: 100%;
   }
 }
+
+/* ---------- V2.2: mobile ---------- */
+@media (max-width: 899px) {
+  .pros__grid {
+    gap: 28px;
+  }
+}
+
+/* Dois cards lado a lado assim que couberem: o Profile Card funciona bem a partir de 290 px. */
+@media (min-width: 620px) and (max-width: 899px) {
+  .pros__cards {
+    flex-wrap: nowrap;
+    gap: 16px;
+  }
+  .pros__card {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+    max-width: 360px;
+  }
+}
+
+@media (max-width: 760px) {
+  .pros__head {
+    gap: var(--s-3);
+  }
+  .pros__index {
+    margin-top: var(--s-1);
+  }
+  .pros__index-row {
+    padding: 12px 0;
+  }
+}
+
+/* Os retratos são horizontais (cerca de 550 × 360): um quadro menos alto mostra mais da foto
+   e amplia menos, sem cortar o rosto. */
+@media (max-width: 619px) {
+  .pros__cards {
+    gap: 16px;
+  }
+  .pros__card {
+    width: min(100%, 400px);
+  }
+  .pros__card .profile-card__tile {
+    aspect-ratio: 1 / 0.86;
+  }
+}
+
+@media (max-width: 720px) {
+  .doctor-panel__body {
+    gap: 12px;
+    padding: 20px 20px 22px;
+  }
+}
+
+/* O botão ocupa a linha inteira quando desce para baixo do @: alinhamento limpo e alvo maior. */
+@media (max-width: 480px) {
+  .pros__card .profile-card__contact {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+}

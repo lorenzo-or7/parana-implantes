@@ -119,3 +119,72 @@
     padding: 26px 0 30px;
   }
 }
+
+/* ---------- V2.2: mobile ---------- */
+@media (max-width: 960px) {
+  .reviews__head {
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .reviews__summary {
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 6px 14px;
+  }
+  .reviews__score {
+    gap: 10px;
+  }
+  .reviews__value {
+    font-size: 2.75rem;
+  }
+  .reviews__of {
+    font-size: var(--t-small);
+    line-height: 1.25;
+  }
+  .reviews__stars {
+    justify-self: end;
+  }
+  .reviews__note,
+  .reviews__summary .text-link {
+    grid-column: 1 / -1;
+  }
+  .reviews__note {
+    max-width: none;
+    font-size: var(--t-small);
+  }
+  .review figure {
+    gap: 12px;
+    padding: 18px 0 20px;
+  }
+  /* Depoimentos são texto corrido: corpo menor e entrelinha mais aberta para a leitura. */
+  .review__quote p {
+    font-size: 1.0625rem;
+    line-height: 1.38;
+    letter-spacing: -0.005em;
+  }
+  .review__meta {
+    font-size: 0.9375rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .reviews__head {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .reviews__summary {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+  .reviews__stars {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .reviews__summary .text-link {
+    max-width: 100%;
+  }
+}

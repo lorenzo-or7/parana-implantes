@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type MouseEvent } from 'react';
+import { flushSync } from 'react-dom';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import { SECTIONS, type SectionId } from '../data/site';
@@ -77,17 +78,39 @@ export function Navbar() {
     const onResize = () => {
       if (window.matchMedia('(min-width: 1200px)').matches) setOpen(false);
     };
+    // No mobile o menu cobre a página: se o foco sair dele (Tab), ele fecha.
+    const onFocusIn = (event: FocusEvent) => {
+      if (isSmall && navRef.current && !navRef.current.contains(event.target as Node)) setOpen(false);
+    };
+    document.addEventListener('focusin', onFocusIn);
     document.addEventListener('keydown', onKey);
     document.addEventListener('pointerdown', onPointer);
     window.addEventListener('resize', onResize);
     return () => {
       cancelAnimationFrame(raf);
       if (isSmall) unlockScroll();
+      document.removeEventListener('focusin', onFocusIn);
       document.removeEventListener('keydown', onKey);
       document.removeEventListener('pointerdown', onPointer);
       window.removeEventListener('resize', onResize);
     };
   }, [open]);
+
+  // Com o menu aberto a página está travada, e destravar cancela a rolagem da âncora em andamento.
+  // Por isso o menu fecha primeiro; a rolagem, a URL e o foco vêm em seguida. Os links continuam reais.
+  const goToSection = (event: MouseEvent<HTMLAnchorElement>, id: SectionId) => {
+    if (!open) return;
+    event.preventDefault();
+    flushSync(() => setOpen(false));
+    const target = document.getElementById(id);
+    if (!target) return;
+    window.history.pushState(null, '', `#${id}`);
+    requestAnimationFrame(() => {
+      target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
+      target.setAttribute('tabindex', '-1');
+      target.focus({ preventScroll: true });
+    });
+  };
 
   const startBooking = () => {
     setOpen(false);
@@ -106,7 +129,7 @@ export function Navbar() {
         aria-label="Navegação principal"
       >
         <div className="island__bar">
-          <a href="#inicio" className="island__brand" onClick={() => setOpen(false)}>
+          <a href="#inicio" className="island__brand" onClick={(event) => goToSection(event, 'inicio')}>
             <Logo className="island__logo" label="Paraná Implantes — voltar ao início" />
           </a>
 
@@ -161,7 +184,7 @@ export function Navbar() {
                       href={`#${id}`}
                       className="island__menu-link"
                       aria-current={active === id ? 'true' : undefined}
-                      onClick={() => setOpen(false)}
+                      onClick={(event) => goToSection(event, id)}
                     >
                       {label}
                     </a>
