@@ -1,96 +1,65 @@
-.experience {
-  background: var(--bg-raised);
-}
-
-.experience__grid {
+/* Architectural Gallery — Balanced Composition.
+   Recepção (7/12) e consultório (5/12) com a mesma altura de moldura, legendas
+   alinhadas logo abaixo. Em 1280 px: ~730 × 540 e ~520 × 540, ou seja, as duas
+   fotos ficam menores que o arquivo original (1024 × 1017 e 851 × 1024). */
+.experience__gallery {
   display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
-  grid-template-areas:
-    'copy copy'
-    'main side';
-  gap: clamp(48px, 6vw, 88px) clamp(20px, 3vw, 40px);
-  align-items: end;
-}
-
-.experience__copy {
-  grid-area: copy;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 24px clamp(32px, 6vw, 96px);
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(16px, 2vw, 28px);
   align-items: start;
 }
 
-.experience__text {
-  display: grid;
-  gap: 22px;
-}
-
-.experience__main {
-  grid-area: main;
+.experience__figure {
   margin: 0;
 }
 
-.experience__side {
-  grid-area: side;
-  margin: 0;
-}
-
-.experience__main img,
-.experience__side img {
-  width: 100%;
-  object-fit: cover;
+.experience__frame {
+  height: clamp(360px, 42vw, 540px);
+  overflow: hidden;
   border-radius: var(--r-media);
+  background: var(--surface);
 }
 
-.experience__main img {
-  aspect-ratio: 16 / 11;
-  object-position: 55% 42%;
+.experience__frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.experience__side img {
-  aspect-ratio: 4 / 5;
-  object-position: 72% 55%;
+/* letreiro, balcão e poltrona dentro do quadro */
+.experience__figure--main img {
+  object-position: 50% 52%;
 }
 
-.experience figcaption {
-  margin-top: 12px;
-  font-size: 0.875rem;
-  color: var(--ink-faint);
+/* cadeira e refletor no quadro, armários à direita */
+.experience__figure--side img {
+  object-position: 72% 64%;
 }
 
-.experience__list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.experience__list li {
-  padding: 12px 0;
+.experience__figure figcaption {
+  display: grid;
+  gap: 4px;
+  margin-top: 14px;
+  padding-top: 14px;
   border-top: 1px solid var(--line);
+  font-size: var(--t-small);
+  color: var(--ink-soft);
+}
+
+.experience__place {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
   color: var(--ink);
 }
 
-.experience__list li:last-child {
-  border-bottom: 1px solid var(--line);
-}
-
-@media (max-width: 900px) {
-  .experience__copy {
+@media (max-width: 640px) {
+  .experience__gallery {
     grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 560px) {
-  .experience__grid {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      'copy'
-      'main'
-      'side';
     gap: 32px;
   }
-  .experience__side {
-    width: 70%;
-    justify-self: end;
+  .experience__frame {
+    height: auto;
+    aspect-ratio: 5 / 4;
   }
 }

@@ -31,8 +31,6 @@
   border-radius: calc(var(--pc-radius) + 10px);
   background: var(--pc-frame);
   box-shadow: var(--pc-frame-shadow);
-  -webkit-backdrop-filter: blur(20px) saturate(1.6);
-  backdrop-filter: blur(20px) saturate(1.6);
   transform: rotateX(var(--pc-rotate-x)) rotateY(var(--pc-rotate-y));
   will-change: transform;
 }

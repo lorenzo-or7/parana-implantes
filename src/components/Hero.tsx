@@ -8,13 +8,19 @@ import './Hero.css';
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
+/**
+ * Hero Cinematic Editorial.
+ * A foto original tem 1024 × 1019 px: em vez de esticá-la na largura da tela,
+ * ela ocupa a coluna da direita (≈ tamanho real em 1440–1920 px), e o texto
+ * fica sobre o fundo marrom da moldura.
+ */
 export function Hero() {
   const { openBooking } = useBooking();
   const reduced = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const [parallaxOn, setParallaxOn] = useState(false);
 
-  // Parallax Depth: só em telas largas com ponteiro fino (evita mobile fraco).
+  // Parallax Depth: só em telas largas com ponteiro fino.
   useEffect(() => {
     const mq = window.matchMedia('(min-width: 900px) and (pointer: fine)');
     const update = () => setParallaxOn(mq.matches);
@@ -24,24 +30,51 @@ export function Hero() {
   }, []);
 
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] });
-  const imageY = useTransform(scrollYProgress, [0, 1], ['0%', '14%']);
-  const copyY = useTransform(scrollYProgress, [0, 1], ['0%', '-18%']);
+  // Camadas em velocidades diferentes: a foto desce devagar, o texto sobe um pouco.
+  const imageY = useTransform(scrollYProgress, [0, 1], ['0%', '6%']);
+  const copyY = useTransform(scrollYProgress, [0, 1], ['0px', '-56px']);
   const depth = parallaxOn && !reduced;
 
-  // Cinematic Reveal: foto primeiro, texto em sequência (~1,6 s no total).
+  // Cinematic Reveal: a foto abre da direita para a esquerda; o texto entra em sequência.
   const line = (delay: number) =>
     reduced
       ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.2 } }
       : {
-          initial: { opacity: 0, y: 26 },
+          initial: { opacity: 0, y: 18 },
           animate: { opacity: 1, y: 0 },
-          transition: { duration: 0.8, delay, ease: EASE },
+          transition: { duration: 0.7, delay, ease: EASE },
         };
 
   return (
     <section id="inicio" ref={sectionRef} className="hero" aria-labelledby="hero-title">
       <div className="hero__frame">
-        <motion.div className="hero__media" style={depth ? { y: imageY } : undefined}>
+        <motion.div className="hero__copy" style={depth ? { y: copyY } : undefined}>
+          <motion.p className="hero__eyebrow" {...line(0.45)}>
+            Paraná Implantes · Curitiba
+          </motion.p>
+          <motion.h1 id="hero-title" className="hero__title" {...line(0.55)}>
+            Cuidar do seu sorriso também é cuidar de você.
+          </motion.h1>
+          <motion.p className="hero__sub" {...line(0.7)}>
+            Tecnologia, acolhimento e atenção personalizada em cada etapa do seu cuidado.
+          </motion.p>
+          <motion.div className="hero__actions" {...line(0.82)}>
+            <MagneticButton type="button" className="btn btn--light btn--lg" onClick={() => openBooking()}>
+              Agendar avaliação
+              <ArrowRight className="btn__arrow" size={18} strokeWidth={1.8} aria-hidden="true" />
+            </MagneticButton>
+            <a href="#experiencia" className="btn btn--outline-light btn--lg">
+              Conheça a clínica
+            </a>
+          </motion.div>
+        </motion.div>
+
+        <motion.figure
+          className="hero__media"
+          initial={reduced ? { opacity: 0 } : { clipPath: 'inset(0% 0% 0% 100%)' }}
+          animate={reduced ? { opacity: 1 } : { clipPath: 'inset(0% 0% 0% 0%)' }}
+          transition={{ duration: reduced ? 0.2 : 1.15, ease: EASE }}
+        >
           <motion.img
             className="hero__img"
             src={asset('assets/clinica/recepcao_principal_hero.webp')}
@@ -50,46 +83,13 @@ export function Hero() {
             height={1019}
             fetchPriority="high"
             decoding="async"
-            initial={reduced ? { opacity: 0 } : { opacity: 0, scale: 1.14 }}
-            animate={{ opacity: 1, scale: 1.04 }}
-            transition={{ duration: reduced ? 0.2 : 1.6, ease: EASE }}
+            style={depth ? { y: imageY } : undefined}
+            initial={reduced ? false : { scale: 1.08 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: reduced ? 0 : 1.6, ease: EASE }}
           />
-        </motion.div>
-        <div className="hero__shade" aria-hidden="true" />
-
-        <motion.div className="hero__content" style={depth ? { y: copyY } : undefined}>
-          <motion.p className="hero__eyebrow" {...line(0.35)}>
-            Paraná Implantes · Curitiba
-          </motion.p>
-          <motion.h1 id="hero-title" className="hero__title" {...line(0.5)}>
-            Onde tecnologia se une ao bem-estar.
-          </motion.h1>
-          <motion.p className="hero__sub" {...line(0.68)}>
-            Uma experiência acolhedora, com tecnologia e cuidado em cada detalhe.
-          </motion.p>
-          <motion.div className="hero__actions" {...line(0.84)}>
-            <MagneticButton type="button" className="btn hero__cta" onClick={() => openBooking()}>
-              Agendar avaliação
-              <span className="hero__cta-arrow" aria-hidden="true">
-                <ArrowRight size={18} strokeWidth={1.8} />
-              </span>
-            </MagneticButton>
-            <a href="#experiencia" className="btn hero__ghost">
-              Conheça a clínica
-            </a>
-          </motion.div>
-        </motion.div>
-
-        <motion.a
-          href="#sobre"
-          className="hero__scroll"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: reduced ? 0 : 1.4, duration: 0.6 }}
-        >
-          <span className="hero__scroll-line" aria-hidden="true" />
-          Role para conhecer
-        </motion.a>
+          <figcaption className="hero__caption">Recepção da clínica, Av. Brasília, 5030</figcaption>
+        </motion.figure>
       </div>
     </section>
   );

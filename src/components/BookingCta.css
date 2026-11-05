@@ -1,91 +1,86 @@
 .booking-cta {
-  padding-block: calc(var(--section-y) * 0.5);
+  padding-block: calc(var(--section-y) * 0.6);
 }
 
 .booking-cta__panel {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
   gap: clamp(36px, 6vw, 96px);
   align-items: center;
-  padding: clamp(32px, 6vw, 88px);
+  padding: clamp(28px, 5vw, 72px);
+  border: 1px solid var(--line);
   border-radius: var(--r-frame);
-  background: var(--brown);
-  color: var(--cream);
-}
-
-:root[data-theme='dark'] .booking-cta__panel {
-  background: var(--surface);
-  box-shadow: inset 0 0 0 1px var(--line);
+  background: var(--bg-alt);
 }
 
 .booking-cta__copy {
   display: grid;
-  gap: 22px;
   justify-items: start;
 }
 
+.booking-cta__copy .section-title {
+  max-width: 13ch;
+}
+
 .booking-cta__lead {
+  margin-top: var(--s-5);
   max-width: 44ch;
-  color: rgba(255, 243, 231, 0.84);
-  font-size: 1.08rem;
+  color: var(--ink-soft);
+  font-size: var(--t-lead);
 }
 
 .booking-cta__btn {
-  min-height: 54px;
-  margin-top: 8px;
-  background: var(--cream);
-  color: var(--brown);
+  margin-top: var(--s-6);
 }
 
-.booking-cta__btn:hover {
-  background: #fffaf4;
-}
-
-.booking-cta__btn:focus-visible {
-  outline-color: var(--cream);
-}
-
+/* Os números aqui são uma sequência real: as quatro etapas do pedido. */
 .booking-cta__steps {
   display: grid;
   margin: 0;
   padding: 0;
   list-style: none;
+  counter-reset: none;
 }
 
 .booking-cta__steps li {
   display: grid;
-  grid-template-columns: 44px 1fr;
+  grid-template-columns: 40px 1fr;
   gap: 16px;
   align-items: start;
   padding: 18px 0;
-  border-top: 1px solid rgba(255, 243, 231, 0.16);
+  border-top: 1px solid var(--line);
 }
 
 .booking-cta__steps li:last-child {
-  border-bottom: 1px solid rgba(255, 243, 231, 0.16);
+  border-bottom: 1px solid var(--line);
 }
 
 .booking-cta__num {
   display: grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
-  border: 1px solid var(--champagne);
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--rule);
   border-radius: 50%;
-  color: var(--gold-soft);
+  color: var(--accent-ink);
+  font-family: var(--font-display);
+  font-weight: 700;
   font-size: 0.9rem;
 }
 
 .booking-cta__step-title {
   display: block;
-  font-weight: 400;
-  font-size: 1.05rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.0625rem;
+  line-height: 1.3;
 }
 
 .booking-cta__step-text {
   display: block;
-  color: rgba(255, 243, 231, 0.72);
-  font-size: 0.925rem;
+  margin-top: 2px;
+  color: var(--ink-soft);
+  font-size: 0.9375rem;
 }
 
 @media (max-width: 900px) {
@@ -95,12 +90,9 @@
 }
 
 @media (max-width: 560px) {
-  .booking-cta .container {
-    padding-inline: 8px;
-  }
   .booking-cta__panel {
-    padding: 36px 22px;
-    border-radius: 24px;
+    padding: 32px 22px;
+    border-radius: 20px;
   }
   .booking-cta__btn {
     width: 100%;

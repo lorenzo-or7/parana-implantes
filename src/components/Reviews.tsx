@@ -8,9 +8,12 @@ export function Reviews() {
     <section id="avaliacoes" className="reviews section" aria-labelledby="reviews-title">
       <div className="container">
         <header className="reviews__head">
-          <h2 id="reviews-title" className="section-title">
-            O que nossos pacientes compartilham.
-          </h2>
+          <div>
+            <p className="label">Avaliações</p>
+            <h2 id="reviews-title" className="section-title">
+              O que nossos pacientes compartilham.
+            </h2>
+          </div>
           <div className="reviews__summary">
             <p className="reviews__score">
               <span className="reviews__value">{RATING.value}</span>

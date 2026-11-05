@@ -1,5 +1,6 @@
 // Gera as versões web (WebP) dos arquivos originais em assets-source/ para public/assets/.
-// Não altera as fotos: apenas recodifica (mesma resolução) e, para a logo manuscrita,
+// Não altera as fotos: apenas recodifica (mesma resolução, qualidade 92 + smartSubsample para evitar
+// borrões de croma nas bordas de madeira e letreiros) e, para a logo manuscrita,
 // deriva um canal alfa a partir do contraste traço/fundo (mesmo desenho, sem redesenhar).
 // A pasta assets-source/restrito NUNCA é processada nem copiada para public/.
 import sharp from 'sharp';
@@ -35,7 +36,7 @@ for (const name of photos) {
   const input = path.join(SRC, `${name}.png`);
   const output = path.join(OUT, `${name}.webp`);
   await ensure(path.dirname(output));
-  const info = await sharp(input).webp({ quality: 84, effort: 5 }).toFile(output);
+  const info = await sharp(input).webp({ quality: 92, effort: 6, smartSubsample: true }).toFile(output);
   console.log(`${name}.webp ${info.width}x${info.height} ${(info.size / 1024).toFixed(0)}KB`);
 }
 

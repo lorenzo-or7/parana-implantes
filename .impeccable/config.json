@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "border-accent-on-rounded",
+        "value": "*",
+        "files": [
+          "src/booking/BookingDialog.css"
+        ],
+        "createdAt": "2026-11-04T23:09:51.665Z",
+        "reason": "Claude triage: L591 is the mobile stepper progress bar (3px border-top) with border-radius explicitly reset to 0 in the same rule; not a rounded card"
+      }
+    ]
+  }
+}

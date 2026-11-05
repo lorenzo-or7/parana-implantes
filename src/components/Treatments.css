@@ -1,15 +1,15 @@
-.treatments__head {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-  align-items: end;
-  gap: 24px clamp(32px, 6vw, 96px);
-  margin-bottom: clamp(40px, 6vw, 72px);
+/* Galeria editorial: as fotos originais têm 546 × 197 px. A proporção 16:10 com a
+   largura de 4 colunas (~310 px) mostra cada foto perto do tamanho real, sem esticar. */
+.treatments {
+  background: var(--bg-alt);
+  border-block: 1px solid var(--line);
 }
 
 .focus-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(12px, 1.4vw, 20px);
+  gap: clamp(14px, 1.6vw, 22px);
+  max-width: 1280px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -18,16 +18,24 @@
 .focus-card {
   transition:
     opacity var(--dur) var(--ease-soft),
-    transform var(--dur) var(--ease),
+    transform var(--dur) var(--ease);
+}
+
+.focus-card__img {
+  transition:
+    transform 700ms var(--ease),
     filter var(--dur) var(--ease-soft);
 }
 
-/* Vizinhos suavizam com moderação: o conteúdo continua legível. */
+/* Focus Cards: o card em foco se destaca; os vizinhos perdem opacidade e nitidez.
+   O desfoque fica só na foto (camada menor, texto continua legível). */
 @media (hover: hover) {
   .focus-grid[data-has-focus] .focus-card:not([data-active]) {
-    opacity: 0.62;
-    filter: blur(1.5px) saturate(0.85);
+    opacity: 0.55;
     transform: scale(0.985);
+  }
+  .focus-grid[data-has-focus] .focus-card:not([data-active]) .focus-card__img {
+    filter: blur(2px) saturate(0.8);
   }
 }
 
@@ -35,7 +43,7 @@
   position: relative;
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 3.4;
+  aspect-ratio: 16 / 10;
   padding: 0;
   border: 0;
   border-radius: var(--r-card);
@@ -47,9 +55,8 @@
 }
 
 .focus-card__button:focus-visible {
-  outline: 3px solid var(--focus);
-  outline-offset: 3px;
-  border-radius: var(--r-card);
+  outline: 2px solid var(--focus);
+  outline-offset: 4px;
 }
 
 .focus-card__img {
@@ -58,41 +65,58 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 700ms var(--ease);
 }
 
 .focus-card[data-active] .focus-card__img {
-  transform: scale(1.04);
+  transform: scale(1.035);
 }
 
+/* Escurecimento só na faixa do texto: a foto mantém cor e contraste. */
 .focus-card__shade {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(42, 26, 14, 0.86) 0%, rgba(42, 26, 14, 0.5) 34%, rgba(42, 26, 14, 0) 62%);
+  background: linear-gradient(to top, rgba(34, 21, 9, 0.9) 0%, rgba(34, 21, 9, 0.55) 38%, rgba(34, 21, 9, 0) 68%);
 }
 
 .focus-card__body {
   position: absolute;
-  left: 20px;
-  right: 20px;
-  bottom: 18px;
-  display: grid;
-  gap: 8px;
+  left: 18px;
+  right: 18px;
+  bottom: 14px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .focus-card__title {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(1.2rem, 1rem + 0.5vw, 1.45rem);
-  line-height: 1.12;
+  font-size: clamp(1.125rem, 1rem + 0.35vw, 1.3rem);
+  line-height: 1.15;
+  text-wrap: balance;
 }
 
+/* O texto da ação fica para leitores de tela; visualmente, só a seta. */
 .focus-card__cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.875rem;
-  color: rgba(255, 243, 231, 0.88);
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(255, 243, 231, 0.45);
+  border-radius: var(--r-btn);
+  color: var(--cream);
+  transition:
+    background-color var(--dur) var(--ease-soft),
+    border-color var(--dur) var(--ease-soft),
+    color var(--dur) var(--ease-soft);
+}
+
+.focus-card[data-active] .focus-card__cta {
+  border-color: var(--cream);
+  background: var(--cream);
+  color: var(--brown);
 }
 
 .focus-card__cta svg {
@@ -100,13 +124,26 @@
 }
 
 .focus-card[data-active] .focus-card__cta svg {
-  transform: translate(2px, -2px);
+  transform: translate(1px, -1px);
+}
+
+.treatments__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 32px;
+  margin-top: clamp(32px, 4vw, 48px);
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  color: var(--ink-soft);
 }
 
 /* ---------- painel de detalhes ---------- */
 .treatment-panel__img {
   width: 100%;
   aspect-ratio: 546 / 197;
+  max-height: 220px;
   object-fit: cover;
 }
 
@@ -148,18 +185,14 @@
   .focus-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .treatments__head {
-    grid-template-columns: 1fr;
-  }
 }
 
 @media (max-width: 560px) {
   .focus-grid {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
-  .focus-card__button {
-    aspect-ratio: 16 / 9;
-  }
+  .treatments__foot .btn,
   .treatment-panel__actions .btn {
     flex: 1 1 100%;
   }

@@ -1,3 +1,8 @@
+.reviews {
+  background: var(--bg-alt);
+  border-block: 1px solid var(--line);
+}
+
 .reviews__head {
   display: grid;
   grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);

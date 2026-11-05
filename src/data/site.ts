@@ -24,6 +24,15 @@ export const MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${encod
   `${ADDRESS.name}, ${ADDRESS.street}, ${ADDRESS.district}, ${ADDRESS.city} - ${ADDRESS.state}, ${ADDRESS.zip}`,
 )}`;
 
+/**
+ * Mapa incorporado sem chave de API (modo embed público do Google Maps), pela busca do
+ * endereço oficial: nenhuma coordenada foi inventada. Se o iframe for bloqueado,
+ * o link MAPS_URL continua disponível ao lado.
+ */
+export const MAPS_EMBED_URL = `https://maps.google.com/maps?q=${encodeURIComponent(
+  `${ADDRESS.street} - ${ADDRESS.district}, ${ADDRESS.city} - ${ADDRESS.state}, ${ADDRESS.zip}`,
+)}&z=16&hl=pt-BR&output=embed`;
+
 export const INSTAGRAM_URL = 'https://www.instagram.com/clinicaparanaimplantes/';
 
 export const SECTIONS = [

@@ -1,55 +1,184 @@
-.history__grid {
-  display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
-  gap: clamp(40px, 7vw, 120px);
-  align-items: center;
+/* Heritage Editorial — Paraná Signature: ano e título em assimetria controlada,
+   fios finos como linhas de projeto, capítulos em colunas e fundadores fechando a leitura. */
+.history {
+  background: var(--bg-alt);
+  border-block: 1px solid var(--line);
 }
 
-.history__mark {
-  position: relative;
+.history__top {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  align-items: end;
+}
+
+.history__dateline {
+  display: grid;
+  gap: 16px;
+  padding-right: clamp(24px, 4vw, 64px);
+  padding-bottom: 6px;
 }
 
 .history__year {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(6rem, 3rem + 13vw, 15rem);
+  font-size: clamp(5rem, 2.6rem + 8vw, 10.5rem);
   line-height: 0.8;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.045em;
   color: transparent;
-  -webkit-text-stroke: 1px var(--champagne);
+  -webkit-text-stroke: 1px var(--rule);
   user-select: none;
 }
 
-.history__seal {
-  width: min(340px, 78%);
-  margin: clamp(-48px, -3vw, -24px) 0 0 auto;
-  padding: clamp(18px, 2.4vw, 28px);
-  border-radius: var(--r-media);
-  background: #ffffff;
-  box-shadow: var(--shadow-soft);
-}
-
-.history__seal img {
-  width: 100%;
-  height: auto;
-}
-
-.history__copy {
-  display: grid;
-  gap: 20px;
-  justify-items: start;
-}
-
-.history__text {
-  max-width: 56ch;
+.history__year-caption {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: var(--t-small);
   color: var(--ink-soft);
 }
 
-@media (max-width: 860px) {
-  .history__grid {
+.history__year-caption::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: var(--rule);
+}
+
+/* fio vertical entre o ano e o título */
+.history__intro {
+  display: grid;
+  gap: var(--s-5);
+  padding-left: clamp(24px, 4vw, 64px);
+  border-left: 1px solid var(--line-strong);
+}
+
+.history__lead {
+  max-width: 46ch;
+  color: var(--ink);
+}
+
+.history__chapters {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: clamp(48px, 6vw, 80px) 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line-strong);
+}
+
+.history__chapter {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  padding: 28px clamp(20px, 2.4vw, 36px) 32px;
+  border-left: 1px solid var(--line);
+  color: var(--ink-soft);
+}
+
+.history__chapter:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.history__chapter:last-child {
+  padding-right: 0;
+}
+
+.history__chapter-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: var(--t-h4);
+  color: var(--ink);
+}
+
+.history__chapter-title::before {
+  content: '';
+  width: 16px;
+  height: 1px;
+  background: var(--rule);
+}
+
+.history__founders {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.history__people {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 40px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.history__person {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.history__person img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 0 1px var(--rule);
+}
+
+.history__person > span {
+  display: grid;
+}
+
+.history__person-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.history__person-role {
+  font-size: var(--t-small);
+  color: var(--ink-soft);
+}
+
+@media (max-width: 900px) {
+  .history__top {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .history__dateline {
+    padding-right: 0;
+  }
+  .history__intro {
+    padding-left: 0;
+    padding-top: 28px;
+    border-left: 0;
+    border-top: 1px solid var(--line-strong);
+  }
+  .history__chapters {
     grid-template-columns: 1fr;
   }
-  .history__mark {
-    order: 2;
+  .history__chapter,
+  .history__chapter:first-child,
+  .history__chapter:last-child {
+    padding: 22px 0;
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+  .history__chapter:first-child {
+    border-top: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .history__people {
+    flex-direction: column;
   }
 }

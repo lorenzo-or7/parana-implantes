@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { TREATMENTS, type Treatment } from '../data/treatments';
 import { asset } from '../lib/asset';
 import { useBooking } from '../booking/BookingContext';
@@ -24,14 +24,19 @@ export function Treatments() {
   return (
     <section id="tratamentos" className="treatments section" aria-labelledby="treatments-title">
       <div className="container">
-        <header className="treatments__head">
-          <h2 id="treatments-title" className="section-title">
-            Caminhos diferentes, cuidado individual.
-          </h2>
-          <p className="lead">
-            Cada boca tem uma história. Conheça os tratamentos da clínica e, quando quiser, peça uma avaliação para
-            entender o que faz sentido no seu caso.
-          </p>
+        <header className="section-head">
+          <div>
+            <p className="label">Tratamentos</p>
+            <h2 id="treatments-title" className="section-title">
+              Caminhos diferentes, cuidado individual.
+            </h2>
+          </div>
+          <div className="section-head__aside">
+            <p className="lead">
+              Cada boca tem uma história. Conheça os tratamentos da clínica e, quando quiser, peça uma avaliação para
+              entender o que faz sentido no seu caso.
+            </p>
+          </div>
         </header>
 
         <ul
@@ -68,14 +73,22 @@ export function Treatments() {
                 <span className="focus-card__body">
                   <span className="focus-card__title">{treatment.title}</span>
                   <span className="focus-card__cta">
-                    Conhecer tratamento
-                    <ArrowUpRight size={16} strokeWidth={1.8} aria-hidden="true" />
+                    <span className="visually-hidden">: conhecer tratamento</span>
+                    <ArrowUpRight size={17} strokeWidth={1.8} aria-hidden="true" />
                   </span>
                 </span>
               </button>
             </li>
           ))}
         </ul>
+
+        <div className="treatments__foot">
+          <p>Ainda não sabe qual é o seu caso? A avaliação serve para isso.</p>
+          <button type="button" className="btn btn--ghost" onClick={() => openBooking('outro')}>
+            Pedir uma avaliação
+            <ArrowRight className="btn__arrow" size={18} strokeWidth={1.8} aria-hidden="true" />
+          </button>
+        </div>
       </div>
 
       <Dialog

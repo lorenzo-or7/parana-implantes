@@ -1,3 +1,4 @@
+import { ArrowRight } from 'lucide-react';
 import { useBooking } from '../booking/BookingContext';
 import './BookingCta.css';
 
@@ -15,6 +16,7 @@ export function BookingCta() {
       <div className="container">
         <div className="booking-cta__panel">
           <div className="booking-cta__copy">
+            <p className="label">Pré-agendamento</p>
             <h2 id="booking-cta-title" className="section-title">
               Conte com a gente para começar.
             </h2>
@@ -22,8 +24,9 @@ export function BookingCta() {
               Em quatro passos você monta um pedido de avaliação e envia pelo WhatsApp. A equipe responde para combinar o
               horário com você.
             </p>
-            <button type="button" className="btn booking-cta__btn" onClick={() => openBooking()}>
+            <button type="button" className="btn btn--primary btn--lg booking-cta__btn" onClick={() => openBooking()}>
               Agendar avaliação
+              <ArrowRight className="btn__arrow" size={18} strokeWidth={1.8} aria-hidden="true" />
             </button>
           </div>
           <ol className="booking-cta__steps">

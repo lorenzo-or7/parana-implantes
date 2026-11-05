@@ -16,8 +16,9 @@ export function Professionals() {
 
   return (
     <section id="profissionais" className="pros section" aria-labelledby="pros-title">
-      <div className="container">
+      <div className="container pros__grid">
         <header className="pros__head">
+          <p className="label">Profissionais</p>
           <h2 id="pros-title" className="section-title">
             Quem cuida de você.
           </h2>
@@ -25,6 +26,16 @@ export function Professionals() {
             Bruna e Adan Barbaresco são irmãos e idealizaram a clínica em 2014. Conheça a formação de cada um e
             acompanhe o trabalho deles pelo Instagram.
           </p>
+          <dl className="pros__index">
+            {DOCTORS.map((doctor) => (
+              <div key={doctor.id} className="pros__index-row">
+                <dt>{doctor.name}</dt>
+                {doctor.credentials.map((credential) => (
+                  <dd key={credential}>{credential}</dd>
+                ))}
+              </div>
+            ))}
+          </dl>
         </header>
 
         <div className="pros__cards">

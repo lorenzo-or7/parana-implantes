@@ -1,32 +1,35 @@
 .visit__grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(36px, 6vw, 96px);
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(36px, 5vw, 80px);
   align-items: stretch;
 }
 
 .visit__copy {
   display: grid;
   align-content: start;
-  gap: 24px;
+  justify-items: start;
 }
 
 .visit__address {
   display: grid;
+  margin-top: var(--s-6);
   font-style: normal;
-  font-size: 1.1rem;
   color: var(--ink-soft);
 }
 
 .visit__street {
+  margin-bottom: 4px;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+  font-size: var(--t-h3);
+  line-height: 1.2;
   color: var(--ink);
 }
 
 .visit__hint {
-  max-width: 44ch;
+  max-width: 42ch;
+  margin-top: var(--s-4);
   color: var(--ink-soft);
 }
 
@@ -34,16 +37,17 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  margin-top: var(--s-6);
 }
 
 .visit__contacts {
-  display: grid;
-  margin: 12px 0 0;
+  width: 100%;
+  margin: var(--s-7) 0 0;
 }
 
 .visit__contacts > div {
   display: grid;
-  grid-template-columns: 120px 1fr;
+  grid-template-columns: 112px 1fr;
   gap: 16px;
   align-items: center;
   min-height: 52px;
@@ -56,7 +60,7 @@
 
 .visit__contacts dt {
   color: var(--ink-faint);
-  font-size: 0.9rem;
+  font-size: var(--t-small);
 }
 
 .visit__contacts dd {
@@ -66,74 +70,84 @@
 .visit__contacts a {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
   min-height: 44px;
   text-decoration: none;
 }
 
 .visit__contacts a:hover {
   text-decoration: underline;
-  text-underline-offset: 4px;
+  text-underline-offset: 5px;
 }
 
+/* ---------- mapa ---------- */
 .visit__map {
-  position: relative;
-  display: block;
-  min-height: 420px;
-  border-radius: var(--r-media);
+  display: flex;
+  flex-direction: column;
+  margin: 0;
   overflow: hidden;
-  color: var(--cream);
-  text-decoration: none;
+  border: 1px solid var(--line);
+  border-radius: var(--r-frame);
+  background: var(--bg-alt);
 }
 
-.visit__map img {
+.visit__map-frame {
+  position: relative;
+  flex: 1;
+  min-height: 460px;
+  background: var(--surface);
+}
+
+.visit__map-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 10px;
+  color: var(--ink-faint);
+  font-size: var(--t-small);
+}
+
+.visit__map iframe {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: 60% 40%;
-  transition: transform 700ms var(--ease);
+  border: 0;
 }
 
-.visit__map:hover img {
-  transform: scale(1.03);
+/* No tema escuro o mapa fica um pouco mais quente e menos luminoso, sem perder leitura. */
+:root[data-theme='dark'] .visit__map iframe {
+  filter: brightness(0.9) sepia(0.12);
 }
 
-.visit__map::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(42, 26, 14, 0.75), rgba(42, 26, 14, 0) 45%);
-}
-
-.visit__map-label {
-  position: absolute;
-  left: 22px;
-  bottom: 20px;
-  z-index: 1;
-  display: inline-flex;
+.visit__map-bar {
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
-  border-radius: var(--r-pill);
-  background: rgba(255, 243, 231, 0.14);
-  border: 1px solid rgba(255, 243, 231, 0.4);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding: 12px 22px;
+  border-top: 1px solid var(--line);
 }
 
-.visit__map:focus-visible {
-  outline-offset: 4px;
-  border-radius: var(--r-media);
+.visit__map-bar > span {
+  display: grid;
+  font-size: var(--t-small);
+  color: var(--ink-soft);
 }
 
-@media (max-width: 900px) {
+.visit__map-bar strong {
+  font-weight: 400;
+  color: var(--ink);
+}
+
+@media (max-width: 960px) {
   .visit__grid {
     grid-template-columns: 1fr;
   }
-  .visit__map {
-    min-height: 300px;
+  .visit__map-frame {
+    min-height: 380px;
   }
 }
 
@@ -142,6 +156,15 @@
     flex: 1 1 100%;
   }
   .visit__contacts > div {
-    grid-template-columns: 96px 1fr;
+    grid-template-columns: 92px 1fr;
+  }
+  .visit__map {
+    border-radius: 18px;
+  }
+  .visit__map-frame {
+    min-height: 320px;
+  }
+  .visit__map-bar {
+    padding: 10px 16px;
   }
 }

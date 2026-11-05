@@ -123,8 +123,9 @@ export const OTHER_OPTION = { id: 'outro', title: 'Outro / Não sei' } as const;
 
 export type BookingTreatmentId = TreatmentId | typeof OTHER_OPTION.id;
 
-export const BOOKING_OPTIONS: readonly { id: BookingTreatmentId; title: string }[] = [
-  ...TREATMENTS.map(({ id, title }) => ({ id, title })),
+/** Opções do agendamento: os 8 tratamentos com a foto do card (miniatura) + “Outro / Não sei” sem foto. */
+export const BOOKING_OPTIONS: readonly { id: BookingTreatmentId; title: string; image?: string; focus?: string }[] = [
+  ...TREATMENTS.map(({ id, title, image, focus }) => ({ id, title, image, focus })),
   OTHER_OPTION,
 ];
 
